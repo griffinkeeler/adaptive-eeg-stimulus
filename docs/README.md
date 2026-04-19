@@ -10,10 +10,9 @@ the attribute that gives the highest "reward" from neural responses.
 - Stimulus parameter optimization
 - Adaptive calibration per subject
 
-
 ## Paradigm
-- Pick stimulus parameters (e.g., colors, size, duration)
-- For each "arm" (i.e., parameter): 
+- Pick stimulus parameters (e.g., contrast)
+- For each "arm" (e.g., low, medium, high):
     - run a short block RSVP (30–50 trials) 
     - send TTL markers
     - save data
