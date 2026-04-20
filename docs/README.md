@@ -17,7 +17,7 @@ the attribute that gives the highest "reward" from neural responses.
     - send TTL markers
     - save data
     - analyze with MNE
-    - compute reward (fisher/AUC/classification)
+    - compute reward (fisher's linear discriminant (FLD))
 - Update bandit
 - Choose the next stimulus parameter 
 - Repeat 
