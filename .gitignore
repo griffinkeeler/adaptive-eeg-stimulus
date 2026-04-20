@@ -9,3 +9,5 @@ venv/
 __pycache__/
 *.pyc
 
+# Ignore scratch notes
+docs/logs.md
