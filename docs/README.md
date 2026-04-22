@@ -11,7 +11,7 @@ the attribute that gives the highest "reward" from neural responses.
 - Adaptive calibration per subject
 
 ## Paradigm
-- Pick stimulus parameters (e.g., contrast)
+- Pick stimulus parameters (contrast)
 - For each "arm" (e.g., low, medium, high):
     - run a short block RSVP (30–50 trials) 
     - send TTL markers
