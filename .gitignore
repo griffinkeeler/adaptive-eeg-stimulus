@@ -11,6 +11,3 @@ __pycache__/
 
 # Ignore scratch notes
 docs/logs.md
-
-# Ignore psychopy program
-psychopy
