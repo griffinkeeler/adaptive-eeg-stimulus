@@ -20,6 +20,8 @@ RSVP BLocks
 ## 1. Rapid Serial Visual Presentation (RSVP)  
 
 ### RSVP Block 1: Medium Contrast
-1. Present target cue for 1000 ms
-2. 
+1. Fixation cross (1000 ms)
+2. Present target cue (750 ms)
+3. Gap (300 ms)
+4. RSVP Stream (28125 ms)
 
