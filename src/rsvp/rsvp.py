@@ -6,8 +6,8 @@ from psychopy import visual, core
 # Experiment Settings
 # -------------
 
-target_letter = "X"
-non_target_letters = ["A", "B", "C", "D", "E", "F", "G"]
+target_letter = "E"
+non_target_letters = ["A", "B", "C", "E", "L", "M", "O", "R", "S"]
 
 n_trials = 100
 target_probability = 0.20
@@ -48,13 +48,69 @@ random.shuffle(trials)
 
 win = visual.Window(size=(800, 600), color="black", units="pix")
 
-stimulus = visual.TextStim(
+# Text stimulus
+text_stimulus = visual.TextStim(
     win=win,
     text="",
     color="white",
     height=80,
     pos=(0, 0)
 )
+text_stimulus.text = target_letter
+
+# Fixation stimulus
+fixation_stimulus = visual.TextStim(
+    win=win,
+    text="+",
+    color="white",
+    height=80,
+    pos=(0, 0)
+)
+
+# Independent clock for tracking time
+clock = core.Clock()
+
+# Display fixation stimulus at 60 Hz
+while clock.getTime() < 1:
+    fixation_stimulus.draw()
+    # Back buffer becomes visible to screen
+    # The previous screen is replaced instantly
+    win.flip()
+
+clock.reset()
+
+# Display target stimulus
+while clock.getTime() < 0.750:
+    text_stimulus.draw()
+    win.flip()
+
+clock.reset()
+
+# Gap between target and RSVP sequence
+text_stimulus.text = ""
+while clock.getTime() < 0.300:
+    text_stimulus.draw()
+    win.flip()
+
+for trial in trials:
+    text_stimulus.text = trial["letter"]
+
+    # Display letter
+    clock.reset()
+    while clock.getTime() < stimulus_duration:
+        text_stimulus.draw()
+        win.flip()
+
+    # Inter-stimulus interval
+    clock.reset()
+    while clock.getTime() < interstimulus_interval:
+        fixation_stimulus.draw()
+        win.flip()
+
+win.close()
+core.quit()
+
+
 
 
 
