@@ -1,10 +1,11 @@
 # Adaptive Stimulus Optimization for EEG-Based BCIs
 
 ## Overview
-The goal of this project is to design a dynamic EEG-based BCI paradigm 
-where the stimulus presentation adapts based on subjects' neural responses.
-A multi-armed bandit (MAB) algorithm will optimize stimulus attributes by choosing
-the attribute that gives the highest "reward" from neural responses. 
+The goal of this project is to test the following hypothesis: does adaptive, subject-specific optimization of 
+stimulus parameters (e.g., contrast, duration, and size) using a multi-armed bandit improve the separability of target
+vs. non-target EEG responses, compared to a fixed stimulus condition? More specifically, does multi-armed bandit optimization
+of stimulus parameters increase the Fisher discriminant score between target and non-target ERP respones in an RSVP-based BCI
+paradigm, relative to a non-adaptive stimulus condition? 
 
 ## Features
 - Stimulus parameter optimization
