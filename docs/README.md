@@ -7,6 +7,11 @@ vs. non-target EEG responses, compared to a fixed stimulus condition? More speci
 of stimulus parameters increase the Fisher discriminant score between target and non-target ERP respones in an RSVP-based BCI
 paradigm, relative to a non-adaptive stimulus condition? 
 
+## Experiment Setup
+- Number of subjects
+  - Pilot study: 10
+  - Real study: 20-40
+
 ## Features
 - Stimulus parameter optimization
 - Adaptive calibration per subject
@@ -14,7 +19,7 @@ paradigm, relative to a non-adaptive stimulus condition?
 ## Paradigm
 - Pick stimulus parameters (contrast)
 - For each "arm" (e.g., low, medium, high):
-    - run a short block RSVP (30–50 trials) 
+    - run a short block RSVP (100 trials) 
     - send TTL markers
     - save data
     - analyze with MNE
