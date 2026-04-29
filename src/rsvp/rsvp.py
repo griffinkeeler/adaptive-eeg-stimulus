@@ -55,7 +55,7 @@ text_stimulus.text = target_letter
 
 # Fixation stimulus
 fixation_stimulus = visual.TextStim(
-    win=win, text="+", color="white", height=80, pos=(0, 0)
+    win=win, text="+", color="red", height=20, pos=(0, 0)
 )
 
 # Independent clock for tracking time
@@ -73,6 +73,7 @@ clock.reset()
 # Display target stimulus
 while clock.getTime() < 0.750:
     text_stimulus.draw()
+    fixation_stimulus.draw()
     win.flip()
 
 clock.reset()
@@ -81,6 +82,7 @@ clock.reset()
 text_stimulus.text = ""
 while clock.getTime() < 0.750:
     text_stimulus.draw()
+    fixation_stimulus.draw()
     win.flip()
 
 for i in range(n_sequences):
@@ -93,6 +95,7 @@ for i in range(n_sequences):
         clock.reset()
         while clock.getTime() < stimulus_duration:
             text_stimulus.draw()
+            fixation_stimulus.draw()
             win.flip()
 
         # Inter-stimulus interval
@@ -105,6 +108,7 @@ for i in range(n_sequences):
     text_stimulus.text = ""
     while clock.getTime() < 2:
         text_stimulus.draw()
+        fixation_stimulus.draw()
         win.flip()
     clock.reset()
 
