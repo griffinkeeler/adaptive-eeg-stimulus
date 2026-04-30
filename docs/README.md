@@ -17,15 +17,22 @@ paradigm, relative to a non-adaptive stimulus condition?
 - Adaptive calibration per subject
 
 ## Paradigm
+
+### Phase 1: Initialization
 - Pick stimulus parameters (contrast)
-- For each "arm" (e.g., low, medium, high):
-    - run a short block RSVP (100 trials) 
-    - send TTL markers
-    - save data
-    - analyze with MNE
-    - compute reward (fisher's linear discriminant (FLD))
-- Update bandit
-- Choose the next stimulus parameter 
+- Initialize each "arm" (e.g., low, medium, high)
+- Compute Fisher's Linear Discriminant (FLD)
+- 
+### Phase 2: Adaptive loop 
+- For each arm:
+  - Use Thompson Sampling to choose an arm
+  - Run a short block RSVP (100 trials) 
+  - Send TTL markers
+  - Save data
+  - Analyze with MNE
+  - Compute reward (FLD)
+  - Update Thompson Sampling belief for that arm
+  - Choose the next stimulus parameter 
 - Repeat 
 
 
