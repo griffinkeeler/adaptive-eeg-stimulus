@@ -9,7 +9,6 @@ from psychopy import visual, core, event
 target_letter = "X"
 non_target_letters = ["A", "B", "C", "E", "L", "M", "O", "R", "S"]
 
-n_trials = 200
 n_sequences = 100
 sequence_length = 20
 target_probability = 0.20
@@ -20,9 +19,6 @@ interstimulus_interval = 0.09375
 # -------------
 # Create trial list
 # -------------
-
-n_targets = int(n_sequences * target_probability)
-n_non_targets = n_trials - n_targets
 
 sequences = []
 
@@ -61,6 +57,10 @@ fixation_stimulus = visual.TextStim(
 # Independent clock for tracking time
 clock = core.Clock()
 
+# -------------
+# Pre-Sequence Fixation (2.5 s)
+# -------------
+
 # Display fixation stimulus at 60 Hz
 while clock.getTime() < 1:
     fixation_stimulus.draw()
@@ -84,6 +84,10 @@ while clock.getTime() < 0.750:
     text_stimulus.draw()
     fixation_stimulus.draw()
     win.flip()
+
+# -------------
+# Sequence Presentation (762.5 s)
+# -------------
 
 for i in range(n_sequences):
 
