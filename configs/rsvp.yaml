@@ -1,0 +1,4 @@
+contrast: # level of contrast of the text stimulus
+  low: 0.1
+  medium: 0.5
+  high: 1.0
