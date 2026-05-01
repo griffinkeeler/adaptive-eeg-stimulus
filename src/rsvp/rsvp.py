@@ -1,4 +1,5 @@
 import random
+import sys
 
 from psychopy import visual, core, event
 from pathlib import Path
@@ -14,6 +15,24 @@ args = OmegaConf.load(CONFIG_PATH)
 
 target_letter = "X"
 non_target_letters = ["A", "B", "C", "E", "L", "M", "O", "R", "S"]
+
+# Uses parallel port depending on the platform
+use_parallel = sys.platform.startswith("win")
+if use_parallel:
+    from psychopy import parallel
+    port = parallel.ParallelPort(address=0x0378)
+else:
+    port = None
+
+def send_trigger(code):
+    if port is not None:
+        port.setData(code)
+        core.wait(0.005)
+        port.setData(0)
+    else:
+        print(f"[TRIGGER] {code}") # debug output
+
+
 
 n_sequences = 100
 sequence_length = 20
@@ -105,7 +124,23 @@ for i in range(n_sequences):
     for trial in trials:
         text_stimulus.text = trial
 
-        # Display letter
+        # Choose trigger code
+        if trial == target_letter:
+            trigger = 1
+        else:
+            trigger = 2
+
+        # Draw the stimulus
+        text_stimulus.draw()
+        fixation_stimulus.draw()
+
+        # Stimulus appears here
+        win.flip()
+
+        # Send one trigger at stimulus onset
+        send_trigger(trigger)
+
+        # Keep stimulus on screen for remaining duration
         clock.reset()
         while clock.getTime() < stimulus_duration:
             text_stimulus.draw()
@@ -118,16 +153,14 @@ for i in range(n_sequences):
             fixation_stimulus.draw()
             win.flip()
 
+        if event.getKeys(["escape"]):
+            break
+
     # Gap between sequences
-    text_stimulus.text = ""
     while clock.getTime() < 2:
-        text_stimulus.draw()
         fixation_stimulus.draw()
         win.flip()
     clock.reset()
-
-    if event.getKeys(["escape"]):
-        break
 
 win.close()
 core.quit()
