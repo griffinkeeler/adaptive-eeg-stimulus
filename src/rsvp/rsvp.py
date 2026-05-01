@@ -1,10 +1,16 @@
 import random
 
 from psychopy import visual, core, event
+from pathlib import Path
+from omegaconf import OmegaConf
 
 # -------------
 # Experiment Settings
 # -------------
+
+CONFIG_PATH = Path(__file__).resolve().parents[2] / "configs" / "rsvp.yaml"
+args = OmegaConf.load(CONFIG_PATH)
+
 
 target_letter = "X"
 non_target_letters = ["A", "B", "C", "E", "L", "M", "O", "R", "S"]
@@ -46,7 +52,11 @@ random.shuffle(sequences)
 win = visual.Window(size=(800, 600), color="black", units="pix")
 
 # Text stimulus
-text_stimulus = visual.TextStim(win=win, text="", color="white", height=80, pos=(0, 0))
+contrast = args["contrast"]["high"]
+text_stimulus = visual.TextStim(
+    win=win, text="", color="white", height=80, pos=(0, 0), contrast=contrast
+)
+
 text_stimulus.text = target_letter
 
 # Fixation stimulus
