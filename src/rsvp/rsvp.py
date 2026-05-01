@@ -24,15 +24,20 @@ if use_parallel:
 else:
     port = None
 
-def send_trigger(code):
+def _debug_trigger(code):
+    print(f"[TRIGGER] {code}")
+
+
+def queue_trigger_on_flip(window, code):
     if port is not None:
-        port.setData(code)
-        core.wait(0.005)
-        port.setData(0)
+        window.callOnFlip(port.setData, code)
     else:
-        print(f"[TRIGGER] {code}") # debug output
+        window.callOnFlip(_debug_trigger, code)
 
 
+def queue_trigger_reset_on_flip(window):
+    if port is not None:
+        window.callOnFlip(port.setData, 0)
 
 n_sequences = 100
 sequence_length = 20
@@ -85,6 +90,8 @@ fixation_stimulus = visual.TextStim(
 
 # Independent clock for tracking time
 clock = core.Clock()
+frame_rate = win.getActualFrameRate() or 60
+frame_duration = 1.0 / frame_rate
 
 # -------------
 # Pre-Sequence Fixation (2.5 s)
@@ -134,27 +141,32 @@ for i in range(n_sequences):
         text_stimulus.draw()
         fixation_stimulus.draw()
 
-        # Stimulus appears here
+        # Tie the trigger edge to the same refresh that shows the stimulus.
+        queue_trigger_on_flip(win, trigger)
         win.flip()
 
-        # Send one trigger at stimulus onset
-        send_trigger(trigger)
-
-        # Keep stimulus on screen for remaining duration
+        # Clear the port on the next flip without blocking stimulus rendering.
+        reset_queued = False
         clock.reset()
-        while clock.getTime() < stimulus_duration:
+        while clock.getTime() < max(stimulus_duration - frame_duration, 0):
             text_stimulus.draw()
             fixation_stimulus.draw()
+            if not reset_queued:
+                queue_trigger_reset_on_flip(win)
+                reset_queued = True
             win.flip()
 
         # Inter-stimulus interval
         clock.reset()
         while clock.getTime() < interstimulus_interval:
             fixation_stimulus.draw()
+            if not reset_queued:
+                queue_trigger_reset_on_flip(win)
+                reset_queued = True
             win.flip()
 
-        if event.getKeys(["escape"]):
-            break
+    if event.getKeys(["escape"]):
+        break
 
     # Gap between sequences
     while clock.getTime() < 2:
