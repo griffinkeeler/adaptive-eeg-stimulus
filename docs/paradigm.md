@@ -16,9 +16,7 @@ Stimulus
   - Time between sequences: 2s
   - Number of stimuli per sequence: 20
   - Duration of sequence: SOA * 20 = 5.625 + 2 = 7.625s
-  - Total duration: (7.625s * 100 = 762.5 s)
-- 20 targets (20% of sequences)
-  - 1 target per sequence
+  - Number of targets per sequence: 3
 
 
 ## 1. Rapid Serial Visual Presentation (RSVP)  
