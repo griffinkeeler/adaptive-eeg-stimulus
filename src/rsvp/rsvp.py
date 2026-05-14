@@ -41,7 +41,7 @@ def queue_trigger_reset_on_flip(window):
 
 n_sequences = 100
 sequence_length = 20
-target_probability = 0.20
+n_targets = 3
 
 stimulus_duration = 0.1875
 interstimulus_interval = 0.09375
@@ -52,6 +52,7 @@ interstimulus_interval = 0.09375
 
 sequences = []
 
+# TODO: Implement create_sequence function
 for sequence in range(n_sequences):
     trials = []
 
@@ -59,8 +60,9 @@ for sequence in range(n_sequences):
     for _ in range(sequence_length):
         letter = random.choice(non_target_letters)
         trials.append(letter)
-        if sequence < 20:
-            trials[0] = target_letter
+    # Add targets to list
+    for i in range(n_targets):
+        trials[i] = target_letter
 
     # Randomize order of trials
     random.shuffle(trials)
@@ -76,16 +78,18 @@ random.shuffle(sequences)
 win = visual.Window(size=(800, 600), color="black", units="pix")
 
 # Text stimulus
-contrast = args["contrast"]["high"]
+contrast = args["contrast"]
+stim_color = args["color"]["stimulus"]
 text_stimulus = visual.TextStim(
-    win=win, text="", color="white", height=80, pos=(0, 0), contrast=contrast
+    win=win, text="", color=stim_color, height=80, pos=(0, 0), contrast=contrast
 )
 
 text_stimulus.text = target_letter
 
 # Fixation stimulus
+fix_color = args["color"]["fixation"]
 fixation_stimulus = visual.TextStim(
-    win=win, text="+", color="red", height=20, pos=(0, 0)
+    win=win, text="+", color=fix_color, height=20, pos=(0, 0)
 )
 
 # Independent clock for tracking time
@@ -169,10 +173,10 @@ for i in range(n_sequences):
         break
 
     # Gap between sequences
+    clock.reset()
     while clock.getTime() < 2:
         fixation_stimulus.draw()
         win.flip()
-    clock.reset()
 
 win.close()
 core.quit()
