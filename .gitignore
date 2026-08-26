@@ -10,8 +10,7 @@ __pycache__/
 *.pyc
 
 # Ignore scratch notes
-docs/logs.md
-docs/irb_checklist.md
+docs/
 
 # Ignore EEG trial data
 data
