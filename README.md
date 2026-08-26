@@ -12,10 +12,6 @@ paradigm, relative to a non-adaptive stimulus condition?
   - Pilot study: 10
   - Real study: 20-40
 
-## Features
-- Stimulus parameter optimization
-- Adaptive calibration per subject
-
 ## Paradigm
 
 ### Phase 1: Initialization
